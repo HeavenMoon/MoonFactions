@@ -1,0 +1,6 @@
+name: HeavenFactions
+main: fr.heavenmoon.factions.HeavenFactions
+authors: [DAYEKA, Hakka]
+version: 1.0
+depend:
+  - Factions
