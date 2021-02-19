@@ -7,6 +7,7 @@ import fr.heavenmoon.persistanceapi.customs.factions.FactionPlayer;
 import fr.heavenmoon.persistanceapi.customs.player.CustomPlayer;
 import fr.heavenmoon.core.bukkit.scoreboard.ScoreboardTeam;
 import fr.heavenmoon.core.common.utils.LocationsUtils;
+import fr.heavenmoon.persistanceapi.customs.player.data.RankList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -38,7 +39,12 @@ public class PlayerJoinListener implements Listener
 		FactionPlayer factionPlayer = plugin.getPersistanceManager().getfPlayersManager().getFactionPlayer(player.getUniqueId());
 		
 		// Serveur
-		if (!customPlayer.getModerationData().isVanish()) Bukkit.broadcastMessage("§8[§a+§8] " + ChatColor.getByChar(customPlayer.getRankData().getStyleCode()) + customPlayer.getRankData().getPrefix());
+		if (!customPlayer.getModerationData().isVanish())
+		{
+			String join = customPlayer.hasPermission(RankList.GUIDE) ?
+					ChatColor.getByChar(customPlayer.getRankData().getStyleCode()) + customPlayer.getRankData().getPrefix() + customPlayer.getName() : customPlayer.getName();
+			Bukkit.broadcastMessage("§8[§a+§8] §a" + join);
+		}
 		
 		// Cache
 		if (!factionPlayer.isExist())
