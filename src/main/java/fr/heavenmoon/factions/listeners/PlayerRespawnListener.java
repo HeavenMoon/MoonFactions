@@ -1,7 +1,7 @@
 package fr.heavenmoon.factions.listeners;
 
+import fr.heavenmoon.core.common.utils.LocationsUtils;
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.moon.core.common.utils.LocationsUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,7 +1,7 @@
 package fr.heavenmoon.factions.listeners;
 
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.moon.core.common.utils.builders.items.HeadBuilder;
+import fr.heavenmoon.core.common.utils.builders.items.HeadBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

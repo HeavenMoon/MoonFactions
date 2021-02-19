@@ -3,13 +3,14 @@ package fr.heavenmoon.factions.commands;
 import fr.heavenmoon.factions.HeavenFactions;
 import fr.heavenmoon.factions.koth.KothState;
 import fr.heavenmoon.factions.utils.LocationUtils;
-import fr.moon.core.bukkit.format.Message;
-import fr.moon.core.common.data.player.CustomPlayer;
-import fr.moon.core.common.data.player.rank.RankList;
-import fr.moon.core.common.format.FormatUtils;
-import fr.moon.core.common.format.message.MessageType;
-import fr.moon.core.common.format.message.PrefixType;
-import fr.heavenmoon.factions.storage.factions.CustomFaction;
+import fr.heavenmoon.core.bukkit.format.Message;
+
+import fr.heavenmoon.core.common.format.FormatUtils;
+import fr.heavenmoon.core.common.format.message.MessageType;
+import fr.heavenmoon.core.common.format.message.PrefixType;
+import fr.heavenmoon.persistanceapi.customs.factions.CustomFaction;
+import fr.heavenmoon.persistanceapi.customs.player.CustomPlayer;
+import fr.heavenmoon.persistanceapi.customs.player.data.RankList;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -48,7 +49,8 @@ public class KothCommand implements CommandExecutor {
                     return false;
                 }
 
-                CustomFaction customFaction = plugin.getfPlayersManager().get(player).getCustomFaction();
+                CustomFaction customFaction =
+                        plugin.getPersistanceManager().getfPlayersManager().getFactionPlayer(player.getUniqueId()).getCustomFaction();
                 plugin.getKothManager().addFaction(customFaction);
                 plugin.getKothManager().getKothFaction(customFaction).ifPresent(kothFaction -> kothFaction.getKothPlayers().add(player));
                 Arrays.asList(FormatUtils.graySpacer(), "Vous avez rejoint l'event KOTH !", "Veuillez vous rendre aux coordonnées prévues...", FormatUtils.graySpacer()).forEach(player::sendMessage);
@@ -62,8 +64,8 @@ public class KothCommand implements CommandExecutor {
         }
 
         if (args.length == 2) {
-            CustomPlayer customPlayer = plugin.getApi().getCommons().getPlayerManager().get(player.getName(), player.getUniqueId().toString());
-            if (customPlayer.hasOnlyPermission(RankList.ADMINISTRATEUR)) {
+            CustomPlayer customPlayer = plugin.getPersistanceManager().getPlayerManager().getCustomPlayer(player.getUniqueId());
+            if (customPlayer.hasPermission(RankList.ADMINISTRATEUR)) {
                 new Message(MessageType.PERMISSION).send(sender);
                 return false;
             }

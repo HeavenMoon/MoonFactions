@@ -1,11 +1,11 @@
 package fr.heavenmoon.factions.koth;
 
-import fr.moon.core.bukkit.format.Message;
-import fr.moon.core.bukkit.utils.ActionbarBuilder;
-import fr.moon.core.common.format.message.PrefixType;
-import fr.moon.core.common.utils.wrappers.LambdaWrapper;
+import fr.heavenmoon.persistanceapi.customs.factions.CustomFaction;
+import fr.heavenmoon.core.bukkit.format.Message;
+import fr.heavenmoon.core.bukkit.utils.ActionbarBuilder;
+import fr.heavenmoon.core.common.format.message.PrefixType;
+import fr.heavenmoon.core.common.utils.wrappers.LambdaWrapper;
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.heavenmoon.factions.storage.factions.CustomFaction;
 import fr.heavenmoon.factions.utils.Cuboid;
 import fr.heavenmoon.factions.utils.LocationUtils;
 import fr.heavenmoon.factions.utils.SmokeUtils;
@@ -49,7 +49,7 @@ public class KothManager {
     public boolean canStart() {
         if (isEnoughFactions()) {
             LambdaWrapper<Integer> seconds = new LambdaWrapper<>(30);
-            startTask = plugin.getApi().getCommons().getScheduler().scheduleAtFixedRate(() -> {
+            startTask = plugin.getCore().getCommons().getScheduler().scheduleAtFixedRate(() -> {
                 if (Arrays.asList(30, 15, 10, 5, 4, 3, 2, 1).contains(seconds.getData())) {
                     kothFactions.forEach(kothFaction -> kothFaction.getKothPlayers().forEach(player -> new Message(PrefixType.SERVER, "Le KOTH va commencé dans " + seconds.getData() + " secondes..").send(player)));
                     seconds.setData(seconds.getData() - 1);
@@ -66,7 +66,7 @@ public class KothManager {
     }
 
     public void startCapture() {
-        gameTask = plugin.getApi().getCommons().getScheduler().scheduleAtFixedRate(() -> {
+        gameTask = plugin.getCore().getCommons().getScheduler().scheduleAtFixedRate(() -> {
             if (manyFactions) {
                 stopAllCaptures();
             } else {

@@ -1,7 +1,7 @@
 package fr.heavenmoon.factions.koth;
 
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.heavenmoon.factions.storage.factions.CustomFaction;
+import fr.heavenmoon.persistanceapi.customs.factions.CustomFaction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,7 +21,8 @@ public class KothListener implements Listener {
         Player player = event.getPlayer();
         if (KothState.isState(KothState.STARTING)) {
             if (plugin.getKothManager().getRegion().isIn(player.getLocation())) {
-                CustomFaction customFaction = plugin.getfPlayersManager().get(player).getCustomFaction();
+                CustomFaction customFaction =
+                        plugin.getPersistanceManager().getfPlayersManager().getFactionPlayer(player.getUniqueId()).getCustomFaction();
                 if (!plugin.getKothManager().getKothFactionInCapture().getFaction().getId().equals(customFaction.getId()) && !plugin.getKothManager().isManyFactions()) {
                     plugin.getKothManager().getGameTask().cancel(true);
                     plugin.getKothManager().setManyFactions(true);

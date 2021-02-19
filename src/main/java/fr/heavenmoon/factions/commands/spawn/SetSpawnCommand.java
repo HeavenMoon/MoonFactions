@@ -1,13 +1,13 @@
 package fr.heavenmoon.factions.commands.spawn;
 
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.moon.core.bukkit.MoonBukkitCore;
-import fr.moon.core.bukkit.format.Message;
-import fr.moon.core.common.data.player.CustomPlayer;
-import fr.moon.core.common.data.player.rank.RankList;
-import fr.moon.core.common.format.message.MessageType;
-import fr.moon.core.common.format.message.PrefixType;
-import fr.moon.core.common.utils.LocationsUtils;
+import fr.heavenmoon.core.bukkit.MoonBukkitCore;
+import fr.heavenmoon.core.bukkit.format.Message;
+import fr.heavenmoon.core.common.format.message.MessageType;
+import fr.heavenmoon.core.common.format.message.PrefixType;
+import fr.heavenmoon.core.common.utils.LocationsUtils;
+import fr.heavenmoon.persistanceapi.customs.player.CustomPlayer;
+import fr.heavenmoon.persistanceapi.customs.player.data.RankList;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -33,8 +33,8 @@ public class SetSpawnCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        CustomPlayer customPlayer = MoonBukkitCore.get().getCommons().getPlayerManager().get(player.getName(), player.getUniqueId().toString());
-        if (!customPlayer.hasOnlyPermission(rank)) {
+        CustomPlayer customPlayer = plugin.getPersistanceManager().getPlayerManager().getCustomPlayer(player.getUniqueId());
+        if (!customPlayer.hasPermission(rank)) {
             new Message(MessageType.PERMISSION).send(player);
             return false;
         }

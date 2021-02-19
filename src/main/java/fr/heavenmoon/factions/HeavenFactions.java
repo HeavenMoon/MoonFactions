@@ -3,13 +3,10 @@ package fr.heavenmoon.factions;
 import fr.heavenmoon.factions.crates.CrateManager;
 import fr.heavenmoon.factions.homes.HomesManager;
 import fr.heavenmoon.factions.koth.KothManager;
-import fr.heavenmoon.factions.quests.QuestsManager;
-import fr.moon.core.bukkit.MoonBukkitCore;
+import fr.heavenmoon.persistanceapi.PersistanceManager;
+import fr.heavenmoon.core.bukkit.MoonBukkitCore;
 import fr.heavenmoon.factions.enderchest.EnderChestManager;
 import fr.heavenmoon.factions.heavenzone.HeavenZoneManager;
-import fr.heavenmoon.factions.scoreboard.ScoreboardManager;
-import fr.heavenmoon.factions.storage.factions.FactionsManager;
-import fr.heavenmoon.factions.storage.players.FPlayersManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.Executors;
@@ -17,42 +14,37 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class HeavenFactions extends JavaPlugin {
 
-    private MoonBukkitCore api;
+    private MoonBukkitCore core;
+    private PersistanceManager persistanceManager;
     private static HeavenFactions instance;
 
     private ScheduledExecutorService executorMonoThread;
     private ScheduledExecutorService scheduledExecutorService;
 
-    private FPlayersManager fPlayersManager;
-    private FactionsManager factionsManager;
-    private ScoreboardManager scoreboardManager;
     private HomesManager homesManager;
     private KothManager kothManager;
     private CrateManager crateManager;
     private HeavenZoneManager heavenZoneManager;
-    private QuestsManager questsManager;
     private EnderChestManager enderChestManager;
 
     @Override
     public void onEnable() {
         super.onEnable();
         instance = this;
+        this.core = MoonBukkitCore.get();
+        this.persistanceManager = new PersistanceManager(getCore().getCommons().getConfig().getServerName(),
+                getCore().getCommons().getDatabaseConfig(), getCore().getCommons().getRedisConfig());
 
         saveDefaultConfig();
 
-        this.api = MoonBukkitCore.get();
 
         scheduledExecutorService = Executors.newScheduledThreadPool(16);
         executorMonoThread = Executors.newScheduledThreadPool(1);
 
-        this.fPlayersManager = new FPlayersManager(this);
-        this.factionsManager = new FactionsManager(this);
-        scoreboardManager = new ScoreboardManager(this);
         this.homesManager = new HomesManager(this);
         this.kothManager = new KothManager(this);
         this.crateManager = new CrateManager(this);
         this.heavenZoneManager = new HeavenZoneManager(this);
-        this.questsManager = new QuestsManager(this);
         this.enderChestManager = new EnderChestManager(this);
 
         new Actions(this);
@@ -62,7 +54,6 @@ public class HeavenFactions extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        scoreboardManager.onDisable();
         super.onDisable();
     }
 
@@ -70,9 +61,11 @@ public class HeavenFactions extends JavaPlugin {
         return instance;
     }
 
-    public MoonBukkitCore getApi() {
-        return api;
+    public MoonBukkitCore getCore() {
+        return core;
     }
+    
+    public PersistanceManager getPersistanceManager() { return persistanceManager; }
 
     public ScheduledExecutorService getExecutorMonoThread() {
         return executorMonoThread;
@@ -81,18 +74,7 @@ public class HeavenFactions extends JavaPlugin {
     public ScheduledExecutorService getScheduledExecutorService() {
         return scheduledExecutorService;
     }
-
-    public FPlayersManager getfPlayersManager() {
-        return fPlayersManager;
-    }
-
-    public FactionsManager getFactionsManager() {
-        return factionsManager;
-    }
-
-    public ScoreboardManager getScoreboardManager() {
-        return scoreboardManager;
-    }
+    
 
     public HomesManager getHomesManager() {
         return homesManager;
@@ -109,11 +91,7 @@ public class HeavenFactions extends JavaPlugin {
     public HeavenZoneManager getHeavenZoneManager() {
         return heavenZoneManager;
     }
-
-    public QuestsManager getQuestsManager() {
-        return questsManager;
-    }
-
+    
     public EnderChestManager getEnderChestManager() {
         return enderChestManager;
     }

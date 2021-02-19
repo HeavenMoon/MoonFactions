@@ -1,9 +1,7 @@
 package fr.heavenmoon.factions.listeners;
 
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.moon.core.bukkit.scoreboard.ScoreboardTeam;
-import fr.heavenmoon.factions.storage.players.FactionPlayer;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import fr.heavenmoon.persistanceapi.customs.factions.FactionPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,12 +18,13 @@ public class PlayerQuitListener implements Listener {
     @EventHandler
     public void on(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        FactionPlayer factionPlayer = plugin.getfPlayersManager().get(player);
-        plugin.getfPlayersManager().update(factionPlayer);
-        plugin.getfPlayersManager().remove(factionPlayer);
-
-        for (ScoreboardTeam team : plugin.getApi().getTeams())
-            (((CraftPlayer) event.getPlayer()).getHandle()).playerConnection.sendPacket(team.removeTeam());
-        plugin.getScoreboardManager().onLogout(event.getPlayer());
+        FactionPlayer factionPlayer = plugin.getPersistanceManager().getfPlayersManager().getFactionPlayer(player.getUniqueId());
+        
+        long timePlayed = System.currentTimeMillis() / 1000L - factionPlayer.getLastLogin() / 1000L;
+        factionPlayer.setTimePlayed(timePlayed);
+        
+        plugin.getPersistanceManager().getfPlayersManager().update(factionPlayer);
+        plugin.getPersistanceManager().getfPlayersManager().remove(factionPlayer);
+        
     }
 }

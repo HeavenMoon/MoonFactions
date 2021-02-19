@@ -2,7 +2,7 @@ package fr.heavenmoon.factions.listeners.factions;
 
 import com.massivecraft.factions.event.EventFactionsCreate;
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.heavenmoon.factions.storage.factions.CustomFaction;
+import fr.heavenmoon.persistanceapi.customs.factions.CustomFaction;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -23,7 +23,7 @@ public class FactionsCreateListener implements Listener {
         List<UUID> PlayerList = new ArrayList<>();
         PlayerList.add(event.getMPlayer().getUuid());
         CustomFaction customFaction = new CustomFaction(event.getFactionId(), event.getFactionName(), PlayerList, 0);
-        plugin.getFactionsManager().add(customFaction);
-        plugin.getFactionsManager().commit(customFaction);
+        plugin.getPersistanceManager().getFactionsManager().add(customFaction);
+        plugin.getPersistanceManager().getFactionsManager().commit(customFaction);
     }
 }

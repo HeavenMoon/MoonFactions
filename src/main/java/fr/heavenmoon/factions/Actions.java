@@ -14,8 +14,7 @@ import fr.heavenmoon.factions.listeners.factions.FactionsCreateListener;
 import fr.heavenmoon.factions.listeners.factions.FactionsDisbandListener;
 import fr.heavenmoon.factions.listeners.factions.FactionsMembershipChangeListener;
 import fr.heavenmoon.factions.listeners.factions.FactionsNameChangeListener;
-import fr.heavenmoon.factions.listeners.quests.BreakListener;
-import fr.heavenmoon.factions.listeners.quests.KillEntityListener;
+
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 
@@ -50,8 +49,6 @@ public class Actions {
         register(new FactionsNameChangeListener(plugin));
         register(new FactionsDisbandListener(plugin));
         register(new HeavenZoneListener(plugin));
-        register(new BreakListener(plugin));
-        register(new KillEntityListener(plugin));
         register(new CrateListener(plugin));
         register(new EnderChestListener(plugin));
     }
@@ -65,9 +62,7 @@ public class Actions {
         new DCommand("spawn", "/spawn", "go to spawn", null, Collections.singletonList(""), new SpawnCommand(plugin), plugin);
         new DCommand("setcrate", "/setcrate", "SetCrate command", null, Collections.singletonList(""), new SetCrateCommand(plugin), plugin);
         new DCommand("setheavenzone", "/setheavenzone", "SetHeavenZone command", null, Collections.singletonList(""), new HeavenZoneCommand(plugin), plugin);
-        new DCommand("quetes", "/quetes", "Quests command", null, Collections.singletonList("quests"), new QuestsCommand(plugin), plugin);
         new DCommand("givekey", "/givekey", "Givekey command", null, Collections.singletonList(""), new GiveCrateKeyCommand(plugin), plugin);
-        new fr.moon.core.common.utils.DCommand("scoreboard", "/scoreboard", "Toggle scoreboard", null, Collections.singletonList("sb"), new ScoreboardCommand(plugin), plugin);
     }
 
 }

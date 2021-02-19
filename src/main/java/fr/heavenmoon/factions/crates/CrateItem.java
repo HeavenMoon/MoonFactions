@@ -1,6 +1,6 @@
 package fr.heavenmoon.factions.crates;
 
-import fr.moon.core.common.utils.builders.items.ItemBuilder;
+import fr.heavenmoon.core.common.utils.builders.items.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

@@ -1,8 +1,8 @@
 package fr.heavenmoon.factions.listeners;
 
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.moon.core.bukkit.format.Message;
-import fr.moon.core.common.format.message.PrefixType;
+import fr.heavenmoon.core.bukkit.format.Message;
+import fr.heavenmoon.core.common.format.message.PrefixType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,11 +1,11 @@
 package fr.heavenmoon.factions.commands;
 
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.moon.core.bukkit.format.Message;
-import fr.moon.core.common.data.player.CustomPlayer;
-import fr.moon.core.common.data.player.rank.RankList;
-import fr.moon.core.common.format.message.MessageType;
-import fr.moon.core.common.format.message.PrefixType;
+import fr.heavenmoon.core.bukkit.format.Message;
+import fr.heavenmoon.core.common.format.message.MessageType;
+import fr.heavenmoon.core.common.format.message.PrefixType;
+import fr.heavenmoon.persistanceapi.customs.player.CustomPlayer;
+import fr.heavenmoon.persistanceapi.customs.player.data.RankList;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,8 +32,8 @@ public class HeavenZoneCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        CustomPlayer customPlayer = plugin.getApi().getCommons().getPlayerManager().get(player.getName(), player.getUniqueId().toString());
-        if (customPlayer.hasOnlyPermission(RankList.ADMINISTRATEUR)) {
+        CustomPlayer customPlayer = plugin.getPersistanceManager().getPlayerManager().getCustomPlayer(player.getUniqueId());
+        if (customPlayer.hasPermission(RankList.ADMINISTRATEUR)) {
             new Message(MessageType.PERMISSION).send(sender);
             return false;
         }

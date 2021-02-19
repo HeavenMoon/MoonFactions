@@ -1,7 +1,7 @@
 package fr.heavenmoon.factions.crates;
 
-import fr.moon.core.bukkit.format.Message;
-import fr.moon.core.bukkit.gui.AbstractGui;
+import fr.heavenmoon.core.bukkit.format.Message;
+import fr.heavenmoon.core.bukkit.gui.AbstractGui;
 import fr.heavenmoon.factions.HeavenFactions;
 import fr.heavenmoon.factions.utils.FireworkPacket;
 import org.bukkit.*;
@@ -27,7 +27,7 @@ public class CrateGUI extends AbstractGui {
     int times;
 
     public CrateGUI(HeavenFactions plugin, CrateUnit crate) {
-        super(plugin.getApi());
+        super(plugin.getCore());
         this.plugin = plugin;
         this.crate = crate;
         this.gived = false;
@@ -89,7 +89,7 @@ public class CrateGUI extends AbstractGui {
         if(action.equalsIgnoreCase("give")) {
             giveReward(player);
             gived = true;
-            plugin.getApi().getGuiManager().closeGui(player);
+            plugin.getCore().getGuiManager().closeGui(player);
         }
     }
 

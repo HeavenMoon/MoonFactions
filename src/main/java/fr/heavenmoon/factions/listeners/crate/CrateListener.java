@@ -1,11 +1,11 @@
 package fr.heavenmoon.factions.listeners.crate;
 
+import fr.heavenmoon.core.bukkit.MoonBukkitCore;
 import fr.heavenmoon.factions.HeavenFactions;
 import fr.heavenmoon.factions.crates.CrateGUI;
 import fr.heavenmoon.factions.crates.CrateKey;
 import fr.heavenmoon.factions.crates.CrateUnit;
 import fr.heavenmoon.factions.enderchest.EnderChestGui;
-import fr.moon.core.bukkit.MoonBukkitCore;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -41,13 +41,13 @@ public class CrateListener implements Listener {
                             CrateUnit crate = CrateUnit.getCrateByName(displayName.substring(13));
                             player.getInventory().removeItem(new CrateKey(crate).toItemStack());
                             event.setCancelled(true);
-                            plugin.getApi().getGuiManager().openGui(player, new CrateGUI(plugin, crate));
+                            plugin.getCore().getGuiManager().openGui(player, new CrateGUI(plugin, crate));
                         }
                     }
                 } else {
                     event.setCancelled(true);
                     event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENDERMAN_TELEPORT, 1.0F, 1.0F);
-                    plugin.getApi().getGuiManager().openGui(event.getPlayer(),new EnderChestGui(MoonBukkitCore.get()));
+                    plugin.getCore().getGuiManager().openGui(event.getPlayer(),new EnderChestGui(MoonBukkitCore.get()));
                 }
             }
         }

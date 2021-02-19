@@ -1,12 +1,12 @@
 package fr.heavenmoon.factions.enderchest;
 
+import fr.heavenmoon.core.bukkit.gui.AbstractGui;
 import fr.heavenmoon.factions.HeavenFactions;
 import fr.heavenmoon.factions.utils.BukkitSerialization;
-import fr.moon.core.bukkit.MoonBukkitCore;
-import fr.moon.core.bukkit.gui.AbstractGui;
-import fr.moon.core.common.data.player.CustomPlayer;
-import fr.moon.core.common.data.player.rank.RankList;
-import fr.moon.core.common.utils.builders.items.ItemBuilder;
+import fr.heavenmoon.core.bukkit.MoonBukkitCore;
+import fr.heavenmoon.core.common.utils.builders.items.ItemBuilder;
+import fr.heavenmoon.persistanceapi.customs.player.CustomPlayer;
+import fr.heavenmoon.persistanceapi.customs.player.data.RankList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -18,7 +18,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
 
-public class EnderChestGui extends AbstractGui {
+public class EnderChestGui extends AbstractGui
+{
 
     public EnderChestGui(MoonBukkitCore plugin) {
         super(plugin);
@@ -27,32 +28,32 @@ public class EnderChestGui extends AbstractGui {
     @Override
     public void display(Player player) {
         this.inventory = plugin.getServer().createInventory(null, 9, ChatColor.DARK_PURPLE + "EnderChest de " + player.getName());
-        CustomPlayer customPlayer = plugin.getCommons().getPlayerManager().get(player.getName(), player.getUniqueId().toString());
+        CustomPlayer customPlayer = plugin.getCommons().getPersistanceManager().getPlayerManager().getCustomPlayer(player.getUniqueId());
         for (int i = 1; i < 10; i++) {
             setSlotData(ChatColor.LIGHT_PURPLE + "EnderChest de " + player.getName() + " N°" + i, new ItemBuilder().setMaterial(Material.ENDER_CHEST).toItemStack(), i - 1, null, "ender" + i);
 
-            if (i == 2 && !customPlayer.hasOnlyPermission(RankList.ASTRONAUTE)) {
+            if (i == 2 && !customPlayer.hasPermission("enderchest.2") && !customPlayer.hasPermission(RankList.MODERATEUR)) {
                 setSlotData(ChatColor.LIGHT_PURPLE + "EnderChest de " + player.getName() + " N°" + i, new ItemBuilder().setMaterial(Material.BARRIER).toItemStack(), i - 1, null, null);
             }
-            if (i == 3 && !customPlayer.hasOnlyPermission(RankList.CONQUERANT)) {
+            if (i == 3 && !customPlayer.hasPermission("enderchest.3") && !customPlayer.hasPermission(RankList.MODERATEUR)) {
                 setSlotData(ChatColor.LIGHT_PURPLE + "EnderChest de " + player.getName() + " N°" + i, new ItemBuilder().setMaterial(Material.BARRIER).toItemStack(), i - 1, null, null);
             }
-            if (i == 4 && !customPlayer.hasOnlyPermission(RankList.SELENITE)) {
+            if (i == 4 && !customPlayer.hasPermission("enderchest.4") && !customPlayer.hasPermission(RankList.MODERATEUR)) {
                 setSlotData(ChatColor.LIGHT_PURPLE + "EnderChest de " + player.getName() + " N°" + i, new ItemBuilder().setMaterial(Material.BARRIER).toItemStack(), i - 1, null, null);
             }
-            if (i == 5 && !customPlayer.hasOnlyPermission(RankList.HEAVEN)) {
+            if (i == 5 && !customPlayer.hasPermission("enderchest.5") && !customPlayer.hasPermission(RankList.MODERATEUR)) {
                 setSlotData(ChatColor.LIGHT_PURPLE + "EnderChest de " + player.getName() + " N°" + i, new ItemBuilder().setMaterial(Material.BARRIER).toItemStack(), i - 1, null, null);
             }
-            if (i == 6 && !customPlayer.hasOnlyPermission(RankList.MODERATEUR)) {
+            if (i == 6 && !customPlayer.hasPermission(RankList.MODERATEUR)) {
                 setSlotData(ChatColor.LIGHT_PURPLE + "EnderChest de " + player.getName() + " N°" + i, new ItemBuilder().setMaterial(Material.BARRIER).toItemStack(), i - 1, null, null);
             }
-            if (i == 7 && !customPlayer.hasOnlyPermission(RankList.MODERATEUR)) {
+            if (i == 7 && !customPlayer.hasPermission(RankList.MODERATEUR)) {
                 setSlotData(ChatColor.LIGHT_PURPLE + "EnderChest de " + player.getName() + " N°" + i, new ItemBuilder().setMaterial(Material.BARRIER).toItemStack(), i - 1, null, null);
             }
-            if (i == 8 && !customPlayer.hasOnlyPermission(RankList.MODERATEUR)) {
+            if (i == 8 && !customPlayer.hasPermission(RankList.MODERATEUR)) {
                 setSlotData(ChatColor.LIGHT_PURPLE + "EnderChest de " + player.getName() + " N°" + i, new ItemBuilder().setMaterial(Material.BARRIER).toItemStack(), i - 1, null, null);
             }
-            if (i == 9 && !customPlayer.hasOnlyPermission(RankList.MODERATEUR)) {
+            if (i == 9 && !customPlayer.hasPermission(RankList.MODERATEUR)) {
                 setSlotData(ChatColor.LIGHT_PURPLE + "EnderChest de " + player.getName() + " N°" + i, new ItemBuilder().setMaterial(Material.BARRIER).toItemStack(), i - 1, null, null);
             }
         }

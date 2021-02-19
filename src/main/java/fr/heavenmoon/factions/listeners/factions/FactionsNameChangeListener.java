@@ -2,7 +2,7 @@ package fr.heavenmoon.factions.listeners.factions;
 
 import com.massivecraft.factions.event.EventFactionsNameChange;
 import fr.heavenmoon.factions.HeavenFactions;
-import fr.heavenmoon.factions.storage.factions.CustomFaction;
+import fr.heavenmoon.persistanceapi.customs.factions.CustomFaction;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -16,10 +16,10 @@ public class FactionsNameChangeListener implements Listener {
 
     @EventHandler
     public void on(EventFactionsNameChange event) {
-        CustomFaction customFaction = plugin.getFactionsManager().get(event.getFaction().getId());
+        CustomFaction customFaction = plugin.getPersistanceManager().getFactionsManager().get(event.getFaction().getId());
         customFaction.setName(event.getNewName());
-        plugin.getFactionsManager().update(customFaction);
-        plugin.getFactionsManager().commit(customFaction);
+        plugin.getPersistanceManager().getFactionsManager().update(customFaction);
+        plugin.getPersistanceManager().getFactionsManager().commit(customFaction);
 
     }
 }
